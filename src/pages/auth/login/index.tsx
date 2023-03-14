@@ -7,14 +7,19 @@ import { loginValidationFormSchema } from "@/utils/validation";
 import { Box } from "@mui/material";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
+import { useEffect, useLayoutEffect } from "react";
 import { LoginFormStyled } from "./style";
 
 function Login() {
-  const { login } = useAuth({
-    revalidateOnMount: false,
-  });
+  const { profile, login } = useAuth();
 
   const router = useRouter();
+
+  useLayoutEffect(() => {
+    if (profile?.data?.id) {
+      router.push("/home");
+    }
+  }, [profile]);
 
   const onSubmit = (values: ILoginForm) => {
     login(values);
@@ -31,7 +36,15 @@ function Login() {
         validationSchema={loginValidationFormSchema}
         onSubmit={onSubmit}
       >
-        {({ values, errors, touched, handleChange, handleSubmit }) => {
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleSubmit,
+          handleBlur,
+        }) => {
+          console.log("touched", touched);
           return (
             <LoginFormStyled>
               <Box sx={{ margin: "1rem 0" }}>
@@ -41,8 +54,6 @@ function Login() {
                   value={values.email}
                   onChange={handleChange("email")}
                   placeholder={""}
-                  error={errors.email}
-                  touched={touched.email}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>
@@ -53,8 +64,6 @@ function Login() {
                   onChange={handleChange("password")}
                   isPassword
                   placeholder={""}
-                  error={errors.password}
-                  touched={touched.password}
                 />
               </Box>
               <p

@@ -6,10 +6,11 @@ import { AppPropsWithLayout } from "@/types/common";
 import { theme } from "@/utils";
 import { ThemeProvider } from "@mui/system";
 import { NextPage } from "next";
-import type { AppProps } from "next/app";
 import { ReactElement, ReactNode } from "react";
 import { Provider } from "react-redux";
 import { SWRConfig } from "swr";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -29,6 +30,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
           <Layout>
             <Component {...pageProps} />
           </Layout>
+          <ToastContainer />
         </Provider>
       </ThemeProvider>
     </SWRConfig>

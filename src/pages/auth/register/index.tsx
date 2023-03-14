@@ -39,8 +39,6 @@ function Register() {
                   value={values.email}
                   onChange={handleChange("email")}
                   placeholder={""}
-                  error={errors.email}
-                  touched={touched.email}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>
@@ -51,8 +49,6 @@ function Register() {
                   onChange={handleChange("password")}
                   isPassword
                   placeholder={""}
-                  error={errors.password}
-                  touched={touched.password}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>
@@ -63,8 +59,6 @@ function Register() {
                   onChange={handleChange("password")}
                   isPassword
                   placeholder={""}
-                  error={errors.password}
-                  touched={touched.password}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>
@@ -74,8 +68,6 @@ function Register() {
                   value={values.password}
                   onChange={handleChange("last_name")}
                   isPassword
-                  error={errors.last_name}
-                  touched={touched.last_name}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>
@@ -84,10 +76,7 @@ function Register() {
                   name="last_name"
                   value={values.last_name}
                   onChange={handleChange("last_name")}
-                  isPassword
                   placeholder={""}
-                  error={errors.last_name}
-                  touched={touched.last_name}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>
@@ -96,10 +85,7 @@ function Register() {
                   name="phone"
                   value={values.phone}
                   onChange={handleChange("phone")}
-                  isPassword
                   placeholder={""}
-                  error={errors.phone}
-                  touched={touched.phone}
                 />
               </Box>
               <Box sx={{ margin: "1rem 0" }}>

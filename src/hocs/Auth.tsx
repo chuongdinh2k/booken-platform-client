@@ -5,9 +5,8 @@ import { ReactNode, useEffect } from "react";
 export function Auth({ children }: { children: ReactNode }) {
   const router = useRouter();
   const { profile } = useAuth();
-  console.log("profile", profile);
   useEffect(() => {
-    if (!profile?.email) {
+    if (!profile?.data?.id) {
       router.push("/auth/login");
     }
   }, []);

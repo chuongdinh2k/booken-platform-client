@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { Error, WrappedInput } from "./style";
-import { ErrorMessage } from "formik";
+import { ErrorMessage, useField } from "formik";
 
 interface IInputProps {
   placeholder?: string;
@@ -12,42 +12,40 @@ interface IInputProps {
   style?: any;
   containerStyle?: Object;
   isPassword?: boolean;
-  error?: string | null | undefined;
-  touched?: boolean;
 }
 
 export const InputField = (props: IInputProps) => {
-  const {
-    placeholder,
-    label,
-    value,
-    name,
-    error,
-    touched,
-    onChange,
-    isPassword,
-  } = props;
-  const handleOnChange = (e: ChangeEvent<any>) => {
-    onChange(e);
-  };
-  console.log("error", error);
+  const { placeholder, label, value, name, onChange, isPassword } = props;
+  const [field, meta] = useField(name);
+  const hasError = !!meta.error && !!meta.touched;
+  const handleOnChange = useCallback(
+    (e: ChangeEvent<any>) => {
+      onChange(e);
+    },
+    [value]
+  );
   return (
     <WrappedInput>
       <TextField
         {...props}
         name={name}
+        autoComplete="off"
         value={value}
         onChange={handleOnChange}
         placeholder={placeholder}
+        inputProps={{
+          form: {
+            autocomplete: "off",
+          },
+        }}
+        onBlur={field.onBlur}
         label={label}
         id="outlined-basic"
         variant="outlined"
         type={isPassword ? "password" : "text"}
-        error={!!error}
+        error={!!hasError}
       />
-      {(error || name || touched) && (
-        <ErrorMessage name={name} component={Error} />
-      )}
+      {hasError && <ErrorMessage name={name} component={Error} />}
     </WrappedInput>
   );
 };
